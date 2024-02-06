@@ -54,7 +54,7 @@
 
   .links a {
     display: inline-block;
-    margin: 10px 20px;
+    margin: 0 5px;
     font-size: 1em;
     color: #0056b3; /* A more conservative blue */
     text-decoration: none;
@@ -87,16 +87,22 @@
     color: #002766;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .profile-pic-container {
-      top: -50px; /* Adjust for smaller screens */
-    }
+  .links img {
+    width: 25px; /* Example size, adjust as needed */
+    height: auto;
+    vertical-align: middle;
+    margin-right: 10px; /* Space between icons */
+  }
+  
 
-    body {
-      padding-top: 15%; /* Increase padding for smaller screens */
+  /* Responsive adjustments for icons */
+  @media (max-width: 768px) {
+    .links img {
+      width: 25px; /* Smaller size for smaller screens */
     }
   }
+  
+
 
 </style>
 </head>
@@ -110,9 +116,15 @@
 <div class="affiliation">Department of Computer Science <br> Johns Hopkins University</div>
 
 <div class="links">
-  <a href="https://scholar.google.com/citations?user=YDlF4lQAAAAJ&hl=en">Google Scholar</a>
-  <a href="https://github.com/yiqings">GitHub</a>
-  <a href="https://orcid.org/0000-0001-7866-3339">ORCiD</a>
+  <a href="https://scholar.google.com/citations?user=YDlF4lQAAAAJ&hl=en">
+    <img src="icon/google.png" alt="Google Scholar" />
+  </a>
+  <a href="https://github.com/yiqings">
+    <img src="icon/github.png" alt="GitHub" />
+  </a>
+  <a href="https://orcid.org/0000-0002-1825-0097">
+    <img src="icon/orcid.png" alt="ORCiD" />
+  </a>
 </div>
 
 <div class="email">
