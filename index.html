@@ -4,136 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yiqing Shen</title>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-
   body {
-    padding-top: 10%;
-    font-family: 'Open Sans', sans-serif; /* A cleaner, more academic-looking font */
+    font-family: 'Roboto', sans-serif;
     text-align: center;
-    background-color: #fff; /* A white background for a cleaner look */
+    background-color: #f0f8ff; /* Light blue background */
     color: #333;
     line-height: 1.6;
+    padding: 20px;
   }
-
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
   .profile-pic-container {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    margin: auto;
-    margin-bottom: -50px; /* Adjusted to bring the image closer to the name */
-    position: relative;
-    top: -50px; /* Adjust if necessary */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for depth */
+    margin: 0 auto 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 5px solid white;
   }
-
   .profile-pic-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
   .name {
-    font-size: 2.5em; /* A responsive font size */
-    font-weight: 700; /* Heavier weight for the name */
+    font-size: 2.8em;
+    font-weight: 700;
     margin-bottom: 10px;
-    color: #222; /* Slightly darker than body text for emphasis */
+    color: #1e90ff; /* Dodger blue */
   }
-
   .affiliation {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #666; 
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    color: #4a4a4a;
   }
-
+  .links {
+    margin-bottom: 25px;
+  }
   .links a {
     display: inline-block;
-    margin: 0 5px;
-    font-size: 1em;
-    color: #0056b3;
-    text-decoration: none;
-    transition: color 0.3s;
+    margin: 0 10px;
+    transition: transform 0.3s;
   }
-
   .links a:hover {
-    color: #002766; 
+    transform: scale(1.1);
   }
-
-  .location {
-    font-size: 1em;
-    margin-top: 20px;
-    color: #666;
+  .links img {
+    width: 30px;
+    height: auto;
   }
-
-  .email {
-    font-size: 1em;
-    margin-top: 20px;
-    color: #666;
+  .email, .location {
+    font-size: 1.1em;
+    margin-top: 15px;
+    color: #4a4a4a;
   }
-
   .email a {
-    color: #0056b3;
+    color: #1e90ff;
     text-decoration: none;
     transition: color 0.3s;
   }
-
   .email a:hover {
-    color: #002766;
+    color: #0056b3;
   }
-
-  .links img {
-    width: 25px; 
-    height: auto;
-    vertical-align: middle;
-    margin-right: 10px; /* Space between icons */
-  }
-  
-
-  /* Responsive adjustments for icons */
-  @media (max-width: 768px) {
-    .links img {
-      width: 25px; /* Smaller size for smaller screens */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+    }
+    .name {
+      font-size: 2.2em;
+    }
+    .affiliation {
+      font-size: 1.1em;
     }
   }
-  
-
-
 </style>
 </head>
 <body>
-
-<div class="profile-pic-container">
+<div class="container">
+  <div class="profile-pic-container">
     <img src="self.jpeg" alt="Yiqing Shen">
-</div>
-    
-<div class="name">Yiqing Shen</div>
-<div class="affiliation">Department of Computer Science <br> Johns Hopkins University</div>
-
-<div class="links">
-  <a href="https://scholar.google.com/citations?user=YDlF4lQAAAAJ&hl=en">
-    <img src="icon/google.png" alt="Google Scholar" />
-  </a>
-  <a href="https://github.com/yiqings">
-    <img src="icon/github.png" alt="GitHub" />
-  </a>
-  <a href="https://orcid.org/0000-0001-7866-3339">
-    <img src="icon/orcid.png" alt="ORCiD" />
-  </a>
-</div>
-
-<div class="email">
-    <a href="mailto:yshen92@jhu.edu">yshen92@jhu.edu</a>
-</div>
+  </div>
   
-<div class="location">
-  Baltimore, MD, USA
+  <h1 class="name">Yiqing Shen</h1>
+  <div class="affiliation">Department of Computer Science<br>Johns Hopkins University</div>
+  
+  <div class="links">
+    <a href="https://scholar.google.com/citations?user=YDlF4lQAAAAJ&hl=en" target="_blank">
+      <img src="icon/google.png" alt="Google Scholar">
+    </a>
+    <a href="https://github.com/yiqings" target="_blank">
+      <img src="icon/github.png" alt="GitHub">
+    </a>
+    <a href="https://orcid.org/0000-0001-7866-3339" target="_blank">
+      <img src="icon/orcid.png" alt="ORCiD">
+    </a>
+  </div>
+  
+  <div class="email">
+    <a href="mailto:yshen92@jhu.edu">yshen92@jhu.edu</a>
+  </div>
+  
+  <div class="location">
+    Baltimore, MD, USA
+  </div>
 </div>
-
 </body>
 </html>
