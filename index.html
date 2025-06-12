@@ -18,22 +18,23 @@
     --silver-900: #48484A;
     --black: #1C1C1E;
     
-    --glass-white: rgba(255, 255, 255, 0.6);
-    --glass-frost: rgba(255, 255, 255, 0.25);
-    --glass-ultra: rgba(255, 255, 255, 0.08);
-    --glass-silver: rgba(247, 247, 250, 0.4);
-    --glass-blur: saturate(180%) blur(50px);
-    --glass-heavy-blur: saturate(200%) blur(100px);
-    --glass-ultra-blur: saturate(250%) blur(150px);
+    /* Enhanced glass variables for a more modern, iOS/macOS-inspired feel */
+    --glass-white: rgba(255, 255, 255, 0.75);
+    --glass-frost: rgba(255, 255, 255, 0.35);
+    --glass-ultra: rgba(255, 255, 255, 0.1);
+    --glass-silver: rgba(247, 247, 250, 0.5);
+    --glass-blur: saturate(180%) blur(20px);
+    --glass-heavy-blur: saturate(180%) blur(40px);
+    --glass-ultra-blur: saturate(200%) blur(60px);
     
+    /* Refined shadow for a more subtle depth effect, mimicking modern UI design */
     --shadow-glass: 
-      0 0 0 0.5px rgba(255, 255, 255, 0.6),
-      0 2px 4px rgba(0, 0, 0, 0.02),
-      0 12px 24px rgba(0, 0, 0, 0.04),
-      0 24px 48px rgba(0, 0, 0, 0.06);
-    
-    --glow: 0 0 40px rgba(255, 255, 255, 0.3);
-    --glow-intense: 0 0 80px rgba(255, 255, 255, 0.5);
+      0 0 0 1px rgba(255, 255, 255, 0.4),
+      0px 10px 15px -3px rgba(0, 0, 0, 0.05), 
+      0px 4px 6px -2px rgba(0, 0, 0, 0.03);
+
+    --glow: 0 0 50px rgba(255, 255, 255, 0.4);
+    --glow-intense: 0 0 100px rgba(255, 255, 255, 0.6);
   }
 
   * {
@@ -347,21 +348,22 @@
     overflow: hidden;
   }
 
-  /* Base glass layer */
+  /* Base glass layer with increased blur and refined shadow */
   .liquid-glass-card::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.7) 0%, 
-      rgba(250, 250, 252, 0.5) 25%,
-      rgba(245, 245, 247, 0.3) 50%,
-      rgba(250, 250, 252, 0.5) 75%,
-      rgba(255, 255, 255, 0.7) 100%);
-    backdrop-filter: var(--glass-heavy-blur);
+      rgba(255, 255, 255, 0.6) 0%, 
+      rgba(250, 250, 252, 0.4) 25%,
+      rgba(245, 245, 247, 0.2) 50%,
+      rgba(250, 250, 252, 0.4) 75%,
+      rgba(255, 255, 255, 0.6) 100%);
+    backdrop-filter: var(--glass-ultra-blur);
     border-radius: 40px;
     box-shadow: var(--shadow-glass);
     z-index: -3;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   /* Middle glass layer with distortion */
@@ -370,11 +372,11 @@
     position: absolute;
     inset: 20px;
     background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 0%,
       transparent 100%);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: -2;
     animation: glassDistort 20s ease-in-out infinite;
   }
@@ -417,15 +419,13 @@
   /* Glass edge highlights */
   .glass-edge {
     position: absolute;
-    inset: 0;
-    border-radius: 40px;
+    inset: -1px;
+    border-radius: 41px;
     background: linear-gradient(135deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.8) 5%,
-      transparent 10%,
-      transparent 90%,
-      rgba(255, 255, 255, 0.4) 95%,
-      transparent 100%);
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 20%,
+      transparent 80%,
+      rgba(255, 255, 255, 0.8) 100%);
     z-index: 2;
     pointer-events: none;
   }
@@ -442,6 +442,61 @@
     display: inline-block;
     margin-bottom: 50px;
   }
+  
+  /* NEW: Aperture effect around profile picture */
+  .aperture-effect {
+    position: absolute;
+    inset: -20px;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform 0.5s ease-out;
+  }
+
+  .profile-pic-wrapper:hover .aperture-effect {
+    transform: scale(1.1);
+  }
+
+  .aperture-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    animation: aperture-spin var(--duration, 20s) linear infinite;
+  }
+  
+  .profile-pic-wrapper:hover .aperture-ring {
+      opacity: var(--opacity, 0.3);
+  }
+  
+  .aperture-ring:nth-child(1) {
+    --duration: 15s;
+    --opacity: 0.5;
+    background: conic-gradient(from 0deg, #ffbebe, #b3ffbe, #beffff, #beb3ff, #ffbebe);
+    filter: blur(20px);
+  }
+  
+  .aperture-ring:nth-child(2) {
+    --duration: 25s;
+    --opacity: 0.3;
+    animation-direction: reverse;
+    background: conic-gradient(from 120deg, #ffdfb3, #b3dfff, #dcb3ff, #ffdfb3);
+    filter: blur(30px);
+  }
+  
+  .aperture-ring:nth-child(3) {
+    --duration: 35s;
+    --opacity: 0.2;
+    background: conic-gradient(from 240deg, #b3ffef, #ffb3f5, #efb3ff, #b3ffef);
+    filter: blur(40px);
+  }
+  
+  @keyframes aperture-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
 
   /* Multi-layer glass profile frame */
   .profile-pic-glass {
@@ -449,7 +504,9 @@
     height: 260px;
     border-radius: 50%;
     position: relative;
+    z-index: 1; /* Ensure profile pic is above the new aperture effect */
     overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   /* Outer glass ring */
@@ -472,25 +529,24 @@
     opacity: 0.7;
   }
 
-  /* Inner glass frame */
+  /* Inner glass frame with crisper look */
   .glass-frame {
     position: absolute;
     inset: 0;
     border-radius: 50%;
     background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(250, 250, 252, 0.7) 25%,
-      rgba(240, 240, 242, 0.5) 50%,
-      rgba(250, 250, 252, 0.7) 75%,
-      rgba(255, 255, 255, 0.9) 100%);
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(250, 250, 252, 0.6) 25%,
+      rgba(240, 240, 242, 0.4) 50%,
+      rgba(250, 250, 252, 0.6) 75%,
+      rgba(255, 255, 255, 0.8) 100%);
     backdrop-filter: var(--glass-blur);
-    padding: 10px;
+    padding: 8px;
     box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 0.9),
-      0 20px 40px rgba(0, 0, 0, 0.1),
-      0 40px 80px rgba(0, 0, 0, 0.05),
-      inset 0 2px 8px rgba(255, 255, 255, 0.9),
-      inset 0 -2px 8px rgba(0, 0, 0, 0.05);
+      0 0 0 1px rgba(255, 255, 255, 0.5),
+      0 15px 30px rgba(0, 0, 0, 0.1),
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
   }
 
@@ -551,9 +607,8 @@
 
   .profile-pic-glass:hover .glass-frame {
     box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 1),
-      0 30px 60px rgba(0, 0, 0, 0.15),
-      0 50px 100px rgba(0, 0, 0, 0.1),
+      0 0 0 1.5px rgba(255, 255, 255, 0.8),
+      0 25px 50px rgba(0, 0, 0, 0.15),
       var(--glow-intense);
   }
 
@@ -564,22 +619,8 @@
     margin-bottom: 20px;
     letter-spacing: -0.02em;
     color: var(--black);
-    text-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.05),
-      0 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
-  }
-
-  /* Glass text effect */
-  .name::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-    z-index: -1;
-    filter: blur(3px);
   }
 
   .affiliation {
@@ -608,21 +649,19 @@
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  /* Multi-layer glass button */
+  /* Multi-layer glass button with refined look */
   .glass-link-bg {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(250, 250, 252, 0.6) 50%,
-      rgba(245, 245, 247, 0.4) 100%);
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(250, 250, 252, 0.4) 100%);
     backdrop-filter: var(--glass-blur);
     border-radius: 24px;
     box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 0.8),
-      0 8px 16px rgba(0, 0, 0, 0.04),
-      0 16px 32px rgba(0, 0, 0, 0.04),
-      inset 0 2px 4px rgba(255, 255, 255, 0.9);
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      0 8px 16px rgba(0, 0, 0, 0.05),
+      inset 0 1px 1px rgba(255, 255, 255, 0.7);
     animation: glassBreath 4s ease-in-out infinite;
   }
 
@@ -635,7 +674,7 @@
     position: absolute;
     inset: 4px;
     background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.2) 0%,
       transparent 100%);
     border-radius: 20px;
     opacity: 0;
@@ -652,10 +691,9 @@
 
   .glass-link:hover .glass-link-bg {
     box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 1),
-      0 20px 40px rgba(0, 0, 0, 0.08),
-      0 30px 60px rgba(0, 0, 0, 0.06),
-      var(--glow-intense);
+      0 0 0 1.5px rgba(255, 255, 255, 0.6),
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      var(--glow);
     animation: none;
   }
 
@@ -934,6 +972,12 @@
       
       <div class="profile-section">
         <div class="profile-pic-wrapper">
+          <!-- NEW: Aperture effect container -->
+          <div class="aperture-effect">
+            <div class="aperture-ring"></div>
+            <div class="aperture-ring"></div>
+            <div class="aperture-ring"></div>
+          </div>
           <div class="profile-pic-glass">
             <div class="glass-ring-outer"></div>
             <div class="glass-frame">
@@ -995,185 +1039,161 @@
   </div>
 
   <script>
+  // This function ensures all the scripts run only after the DOM is fully loaded.
+  // This prevents "Script error" caused by scripts trying to find elements that haven't been created yet.
+  document.addEventListener('DOMContentLoaded', () => {
+
     // Advanced mouse tracking for glass refraction
     const card = document.querySelector('.liquid-glass-card');
-    const refractionWave = document.querySelector('.refraction-wave');
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-    
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      mouseX = ((e.clientX - rect.left) / rect.width) * 100;
-      mouseY = ((e.clientY - rect.top) / rect.height) * 100;
-    });
-    
-    // Smooth animation loop for glass effects
-    function animate() {
-      currentX += (mouseX - currentX) * 0.08;
-      currentY += (mouseY - currentY) * 0.08;
-      
-      refractionWave.style.setProperty('--mouse-x', `${currentX}%`);
-      refractionWave.style.setProperty('--mouse-y', `${currentY}%`);
-      
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // 3D glass morphing with depth
-    const glassElements = document.querySelectorAll('.glass-link, .profile-pic-glass');
-    glassElements.forEach(element => {
-      element.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+    if (card) {
+      const refractionWave = card.querySelector('.refraction-wave');
+      if (refractionWave) {
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
         
-        const rotateY = x * 20;
-        const rotateX = -y * 20;
-        const translateZ = Math.abs(x * y) * 50;
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          mouseX = ((e.clientX - rect.left) / rect.width) * 100;
+          mouseY = ((e.clientY - rect.top) / rect.height) * 100;
+        });
         
-        this.style.transform = `
-          perspective(1000px)
-          rotateY(${rotateY}deg)
-          rotateX(${rotateX}deg)
-          translateZ(${translateZ}px)
-          translateY(${this.classList.contains('glass-link') ? '-10px' : '-12px'})
-          scale(${this.classList.contains('glass-link') ? '1.1' : '1.03'})
-        `;
-      });
-      
-      element.addEventListener('mouseleave', function() {
-        this.style.transform = '';
-      });
-    });
-
-    // Advanced orb parallax with glass distortion
-    const orbs = document.querySelectorAll('.orb');
-    let scrollY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      
-      orbs.forEach((orb, index) => {
-        const speed = (index + 1) * 25;
-        const rotateX = y * speed * 0.5;
-        const rotateY = x * speed * 0.5;
-        const translateZ = (Math.sin(Date.now() * 0.001 + index) * 20);
-        
-        orb.style.transform = `
-          translate(${x * speed}px, ${y * speed + scrollY * (index + 1) * 0.1}px)
-          rotateX(${rotateX}deg)
-          rotateY(${rotateY}deg)
-          translateZ(${translateZ}px)
-        `;
-      });
-    });
-
-    // Scroll parallax for glass layers
-    window.addEventListener('scroll', () => {
-      scrollY = window.pageYOffset;
-      const panels = document.querySelectorAll('.glass-panel');
-      
-      panels.forEach((panel, index) => {
-        const speed = (index + 1) * 0.5;
-        panel.style.transform = `
-          ${panel.style.transform.split('translateY')[0]} 
-          translateY(${scrollY * speed}px)
-        `;
-      });
-    });
-
-    // Location badge hover effect
-    const location = document.querySelector('.location');
-    location.addEventListener('mousemove', (e) => {
-      const rect = location.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      location.style.setProperty('--hover-x', `${x}%`);
-      location.style.setProperty('--hover-y', `${y}%`);
-    });
-
-    // Liquid button advanced ripple
-    const liquidBtn = document.querySelector('.liquid-btn');
-    liquidBtn.addEventListener('click', function(e) {
-      const ripple = document.createElement('div');
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 2;
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-      
-      ripple.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
-        left: ${x}px;
-        top: ${y}px;
-        background: radial-gradient(circle,
-          rgba(255,255,255,0.8) 0%,
-          rgba(255,255,255,0.4) 40%,
-          transparent 70%);
-        border-radius: 50%;
-        transform: scale(0);
-        mix-blend-mode: overlay;
-        pointer-events: none;
-        z-index: 10;
-      `;
-      
-      this.appendChild(ripple);
-      
-      // Animate ripple
-      requestAnimationFrame(() => {
-        ripple.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease';
-        ripple.style.transform = 'scale(1)';
-        ripple.style.opacity = '0';
-      });
-      
-      setTimeout(() => ripple.remove(), 800);
-    });
-
-    // Glass panel interaction
-    const glassPanels = document.querySelectorAll('.glass-panel');
-    glassPanels.forEach(panel => {
-      panel.addEventListener('mouseenter', function() {
-        this.style.filter = 'blur(32px)';
-        this.style.opacity = '0.3';
-      });
-      
-      panel.addEventListener('mouseleave', function() {
-        this.style.filter = '';
-        this.style.opacity = '';
-      });
-    });
-
-    // Performance optimization: Throttle expensive operations
-    let ticking = false;
-    function requestTick(callback) {
-      if (!ticking) {
-        requestAnimationFrame(callback);
-        ticking = true;
-        setTimeout(() => ticking = false, 16);
+        // Smooth animation loop for glass effects
+        function animate() {
+          currentX += (mouseX - currentX) * 0.08;
+          currentY += (mouseY - currentY) * 0.08;
+          
+          refractionWave.style.setProperty('--mouse-x', `${currentX}%`);
+          refractionWave.style.setProperty('--mouse-y', `${currentY}%`);
+          
+          requestAnimationFrame(animate);
+        }
+        animate();
       }
     }
 
-    // Add subtle breathing animation to profile picture
-    const profileGlass = document.querySelector('.profile-pic-glass');
-    let breatheAnimation = null;
-    
-    profileGlass.addEventListener('mouseenter', () => {
-      let scale = 1;
-      let direction = 1;
-      
-      breatheAnimation = setInterval(() => {
-        scale += 0.002 * direction;
-        if (scale > 1.03 || scale < 1) direction *= -1;
-        profileGlass.style.transform = `translateY(-12px) scale(${scale})`;
-      }, 50);
-    });
-    
-    profileGlass.addEventListener('mouseleave', () => {
-      clearInterval(breatheAnimation);
-      profileGlass.style.transform = '';
-    });
+    // 3D glass morphing with depth
+    const glassElements = document.querySelectorAll('.glass-link, .profile-pic-glass');
+    if (glassElements.length > 0) {
+      glassElements.forEach(element => {
+        element.addEventListener('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          
+          const rotateY = x * 20;
+          const rotateX = -y * 20;
+          const translateZ = Math.abs(x * y) * 50;
+          
+          const isLink = this.classList.contains('glass-link');
+          const translateYValue = isLink ? '-10px' : '-12px';
+          const scaleValue = isLink ? '1.1' : '1.03';
+
+          this.style.transform = `
+            perspective(1000px)
+            rotateY(${rotateY}deg)
+            rotateX(${rotateX}deg)
+            translateZ(${translateZ}px)
+            translateY(${translateYValue})
+            scale(${scaleValue})
+          `;
+        });
+        
+        element.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+        });
+      });
+    }
+
+    // Advanced orb parallax with glass distortion
+    const orbs = document.querySelectorAll('.orb');
+    if (orbs.length > 0) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        
+        orbs.forEach((orb, index) => {
+          const speed = (index + 1) * 25;
+          const rotateX = y * speed * 0.5;
+          const rotateY = x * speed * 0.5;
+          const translateZ = (Math.sin(Date.now() * 0.001 + index) * 20);
+          
+          orb.style.transform = `
+            translate(${x * speed}px, ${y * speed}px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            translateZ(${translateZ}px)
+          `;
+        });
+      });
+    }
+
+    // Location badge hover effect
+    const location = document.querySelector('.location');
+    if (location) {
+      location.addEventListener('mousemove', (e) => {
+        const rect = location.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        location.style.setProperty('--hover-x', `${x}%`);
+        location.style.setProperty('--hover-y', `${y}%`);
+      });
+    }
+
+    // Liquid button advanced ripple
+    const liquidBtn = document.querySelector('.liquid-btn');
+    if (liquidBtn) {
+      liquidBtn.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: radial-gradient(circle,
+            rgba(255,255,255,0.8) 0%,
+            rgba(255,255,255,0.4) 40%,
+            transparent 70%);
+          border-radius: 50%;
+          transform: scale(0);
+          mix-blend-mode: overlay;
+          pointer-events: none;
+          z-index: 10;
+        `;
+        
+        this.appendChild(ripple);
+        
+        requestAnimationFrame(() => {
+          ripple.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease';
+          ripple.style.transform = 'scale(1)';
+          ripple.style.opacity = '0';
+        });
+        
+        setTimeout(() => ripple.remove(), 800);
+      });
+    }
+
+    // Glass panel interaction
+    const glassPanels = document.querySelectorAll('.glass-panel');
+    if (glassPanels.length > 0) {
+      glassPanels.forEach(panel => {
+        panel.addEventListener('mouseenter', function() {
+          this.style.filter = 'blur(32px)';
+          this.style.opacity = '0.3';
+        });
+        
+        panel.addEventListener('mouseleave', function() {
+          this.style.filter = '';
+          this.style.opacity = '';
+        });
+      });
+    }
+  });
   </script>
 </body>
 </html>
