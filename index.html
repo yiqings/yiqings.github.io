@@ -14,27 +14,48 @@
   body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    background-color: #f0f8ff; /* Light blue background */
-    color: #333;
+    background: linear-gradient(135deg, #d6d8db 0%, #adb5bd 100%);
+    color: #212529;
     line-height: 1.6;
     padding: 20px;
+    min-height: 100vh;
   }
   .container {
     max-width: 800px;
     margin: 0 auto;
     background-color: white;
-    border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #000 0%, #666 50%, #000 100%);
   }
   .profile-pic-container {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 0 auto 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    border: 5px solid white;
+    margin: 0 auto 35px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border: 6px solid white;
+    position: relative;
+  }
+  .profile-pic-container::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #000 0%, #666 100%);
+    z-index: -1;
   }
   .profile-pic-container img {
     width: 100%;
@@ -42,60 +63,138 @@
     object-fit: cover;
   }
   .name {
-    font-size: 2.8em;
+    font-size: 3.2em;
     font-weight: 700;
-    margin-bottom: 10px;
-    color: #1e90ff; /* Dodger blue */
+    margin-bottom: 15px;
+    color: #000;
+    letter-spacing: -0.02em;
+    position: relative;
   }
   .affiliation {
-    font-size: 1.3em;
-    margin-bottom: 25px;
-    color: #4a4a4a;
+    font-size: 1.4em;
+    margin-bottom: 35px;
+    color: #495057;
+    font-weight: 300;
+    line-height: 1.4;
   }
   .links {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
   }
   .links a {
-    display: inline-block;
-    margin: 0 10px;
-    transition: transform 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   .links a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  .links a:hover::before {
+    opacity: 1;
+  }
+  .links a:hover img {
+    filter: brightness(0) invert(1);
     transform: scale(1.1);
   }
   .links img {
-    width: 30px;
-    height: auto;
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
   }
-  .email, .location {
-    font-size: 1.1em;
-    margin-top: 15px;
-    color: #4a4a4a;
+  .email {
+    font-size: 1.2em;
+    margin: 25px 0;
+    color: #495057;
   }
   .email a {
-    color: #1e90ff;
+    color: #000;
     text-decoration: none;
-    transition: color 0.3s;
+    font-weight: 500;
+    padding: 12px 24px;
+    border: 2px solid #000;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+  }
+  .email a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
   .email a:hover {
-    color: #0056b3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   }
- .footnote {
+  .email a:hover::before {
+    transform: translateX(0);
+  }
+  .email a span {
+    position: relative;
+    z-index: 1;
+  }
+  .location {
+    font-size: 1.1em;
+    margin-top: 20px;
+    color: #6c757d;
+    font-weight: 300;
+  }
+  .footnote {
     font-size: 0.9em;
-    margin-top: 30px;
-    color: #777;
-    border-top: 1px solid #ddd;
-    padding-top: 15px;
+    margin-top: 40px;
+    color: #adb5bd;
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+    font-weight: 300;
   }
   @media (max-width: 600px) {
     .container {
-      padding: 20px;
+      padding: 30px 25px;
+      margin: 10px;
     }
     .name {
-      font-size: 2.2em;
+      font-size: 2.4em;
     }
     .affiliation {
-      font-size: 1.1em;
+      font-size: 1.2em;
+    }
+    .profile-pic-container {
+      width: 180px;
+      height: 180px;
+    }
+    .links {
+      gap: 15px;
+    }
+    .links a {
+      width: 45px;
+      height: 45px;
     }
   }
 </style>
@@ -122,7 +221,7 @@
   </div>
   
   <div class="email">
-    <a href="mailto:yshen92@jhu.edu">yshen92@jhu.edu</a>
+    <a href="mailto:yiqingshen1@gmail.com"><span>yiqingshen1@gmail.com</span></a>
   </div>
   
   <div class="location">
@@ -130,7 +229,7 @@
   </div>
 
   <div class="footnote">
-    © 2024 Yiqing Shen. Last updated: September 1, 2024.
+    © 2025 Yiqing Shen
   </div>
 </div>
 </body>
